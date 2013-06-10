@@ -37,6 +37,14 @@ end
 directory REPORT_DIR
 
 task :clean_test_files do
+
+    # Clean coverage files, to ensure that we don't
+    # use stale data to generate reports.
+    # We delete the files but preserve the directory structure
+    # so that coverage.py has a place to put the reports.
+    sh("find #{REPORT_DIR} -type f -delete")
+
+    # Clean fixture files used by tests
     sh("git clean -fqdx test_root")
 end
 
